@@ -13,9 +13,9 @@ import android.widget.Toast;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class InsertActivity extends AppCompatActivity {
-    private FirebaseDatabase mFirebaseDatabae;
-    private DatabaseReference mDatabaseRefence;
+public class DealActivity extends AppCompatActivity {
+    private FirebaseDatabase mFirebaseDatabase;
+    private DatabaseReference mDatabaseReference;
     EditText mTxtTitle;
     EditText mTxtPrice;
     EditText mTxztDescription;
@@ -25,8 +25,11 @@ public class InsertActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_insert);
 
-        mFirebaseDatabae = FirebaseDatabase.getInstance();
-        mDatabaseRefence = mFirebaseDatabae.getReference().child("traveldeals");
+
+
+        FirebaseUtil.openFbReference("traveldeals");
+        mFirebaseDatabase = FirebaseUtil.mFirebaseDatabase;
+        mDatabaseReference = FirebaseUtil.mDatabaseReference;
 
         mTxtTitle = (EditText) findViewById(R.id.txtTitle);
         mTxtPrice = (EditText) findViewById(R.id.txtPrice);
@@ -59,7 +62,7 @@ public class InsertActivity extends AppCompatActivity {
         String price = mTxtPrice.getText().toString();
         String description = mTxztDescription.getText().toString();
         TravelDeal travelDeal = new TravelDeal(title, price, description, "");
-        mDatabaseRefence.push().setValue(travelDeal);
+        mDatabaseReference.push().setValue(travelDeal);
     }
 
     private void saveMenu() {
